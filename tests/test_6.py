@@ -4,7 +4,7 @@ sys.path.append('../python-physics-engine')
 sys.path.append('../python-physics-engine/objects')
 from objects.ParticleObject import *
 from scene import *
-
+from collision_manager import CollisionManager
 u_width, u_height = unicorn.get_shape()
 
 
@@ -20,11 +20,12 @@ def test6():
         s.destroy_physics_object(part2)
         print(s.physics_objects)
     """
-    s = scene(0,0)
-    v1 = [2,0]
-    v2 = [-1,0] 
-    part1 = ParticleObject(1,1,v1)
-    part2 = ParticleObject(15,1,v2)
+    cm = CollisionManager()
+    s = scene(cm,0,0)
+    v1 = [2,1]
+    v2 = [-1,1] 
+    part1 = ParticleObject(1,1,v1,(255,255,255))
+    part2 = ParticleObject(15,1,v2,(255,255,255))
 
     s.create_physics_object(part1)
     s.create_physics_object(part2)
