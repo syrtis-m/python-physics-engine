@@ -43,36 +43,43 @@ class scene():
 
 
     def update(self):
+        magnitudes = []
         for object in self.physics_objects:
             object.updatePosition()
             if object.isOutOfBounds():
                 self.destroy_physics_object(object)
-        if self.detectCollision():
+                if not self.physics_objects: #if no more objects, end the sim
+                    unicorn.off()
+            magnitudes.append(math.sqrt(object.velocity[0]**2+object.velocity[1]**2))
+        if self.detectCollision(max(magnitudes)):
             print("algo detected collision -- ouch!")
 
 
     # https://www.geeksforgeeks.org/closest-pair-of-points-using-divide-and-conquer-algorithm/
-    def detectCollision(self): #determine if any object is within z distance from another object
+    def detectCollision(self, maxVelocity): #determine if any object is within z distance from another object
+        def dist(obj1, obj2):
+            return math.sqrt((obj1.x-obj2.x)**2+(obj1.y-obj2.y)**2)
         positions = []
-        dist = lambda p1, p2: math.sqrt((p1[0] - p2[0])**2 + (p1[1] - p2[1])**2)
         for object in self.physics_objects:
             positions.append([object.x, object.y])
             
         min_val = float('inf') 
-        n = len(positions)
+        n = len(self.physics_objects)
         #brute force find distance betweeen points    
         for i in range(n):
             for j in range(i + 1, n):
-                if dist(positions[i], positions[j]) < min_val:
-                    min_val = dist(positions[i],positions[j])
+                d = dist(self.physics_objects[i], self.physics_objects[j])
+                if d < min_val:
+                    min_val = d
     
-        if min_val < 1:
-            return True    
+        if min_val < maxVelocity:
+            return True
         
 
     def clear(self): #clears a scene because unicorn.clear() doesn't work great
         for i in range(0,16):
             for j in range(0,16):
                 unicorn.set_pixel(i,j,0,0,0)
+
 
 

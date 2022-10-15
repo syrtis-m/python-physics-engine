@@ -1,7 +1,8 @@
 from cgi import test
 import sys
 sys.path.append('../python-physics-engine')
-from ParticleObject import *
+sys.path.append('../python-physics-engine/objects')
+from objects.ParticleObject import *
 from scene import *
 
 u_width, u_height = unicorn.get_shape()
@@ -32,10 +33,8 @@ def test6():
         while(True):
             s.render()
             unicorn.show()
-            time.sleep(0.5)
+            time.sleep(0.1)
             s.update()
-            if s.detectCollision():
-                pass
             s.clear()
     except KeyboardInterrupt:
         s.clear()
