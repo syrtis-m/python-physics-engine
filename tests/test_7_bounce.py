@@ -10,16 +10,19 @@ from objects.BallObject import BallObject
 
 
 def test_7_bounce():
-    s = scene(0.5, 0)
-    
 
-    s.create_static_object(StaticObject(0,0,(3, 255, 37), ((15,15),(0,15))))
-    s.create_physics_object(BallObject(14,0,(-0.5,0),(255,255,255)))
+    cm = CollisionManager()
+    s = scene(cm, 0.5, 0.5, 1)
+    
+    #s.create_static_object(StaticObject((3, 255, 37), ((15,15),(0,15))))
+
+    s.create_static_object(StaticObject((3, 255, 37), ((15,12),(0,15))))
+    s.create_physics_object(BallObject(14,0,(-0.25,0),(255,255,255)))
     
 
     while(True):
         s.render()
-        time.sleep(0.5)
+        time.sleep(0.1)
         s.update()
 
 
