@@ -1,4 +1,5 @@
 import sys
+from typing import Tuple
 sys.path.append('../python-physics-engine')
 
 from abc import ABC, abstractmethod
@@ -43,3 +44,7 @@ class AbstractObject(ABC):
         if ((self.y >15) or (self.y < 0)):
             return True
         return False
+
+    @abstractmethod
+    def addForce(self, force):
+        self.velocity = (self.velocity[0] + force[0], self.velocity[1] + force[1])

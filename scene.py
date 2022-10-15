@@ -38,6 +38,7 @@ class scene():
         self.static_objects.remove(static_object)
 
     def render(self): #renders all objects in a scene
+
         self.clear()
         for object in self.physics_objects:
             object.render()
@@ -47,6 +48,10 @@ class scene():
 
 
     def update(self):
+        if (self.gravity > 0):
+            for object in self.physics_objects:
+                object.addForce((0,self.gravity))
+
         magnitudes = []
         for object in self.physics_objects:
             object.updatePosition()
