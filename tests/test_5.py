@@ -1,5 +1,7 @@
 from cgi import test
-from ParticleObject import *
+import sys
+sys.path.append('../python-physics-engine')
+from ParticleObject import * 
 from scene import *
 
 u_width, u_height = unicorn.get_shape()

@@ -1,6 +1,8 @@
 # import stuff
 import numpy as np
 from timeit import default_timer as timer
+import sys
+sys.path.append('../python-physics-engine')
 from scene import *
 
 

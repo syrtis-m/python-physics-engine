@@ -21,9 +21,15 @@ class scene():
 
     def create_physics_object(self, physics_object): #adds a physics object to a scene
         self.physics_objects.append(physics_object)
+
+    def destroy_physics_object(self, physics_object): #removes physics object from scene
+        self.physics_objects.remove(physics_object)
     
     def create_static_object(self, static_object): #adds a static object to a scene
         self.static_objects.append(static_object)
+
+    def destroy_static_object(self, static_object): #removes a static object from a scene
+        self.static_objects.remove(static_object)
 
     def render(self): #renders all objects in a scene
         unicorn.clear()
@@ -33,14 +39,18 @@ class scene():
             object.render()
         unicorn.show()
 
+
     def update(self):
         for object in self.physics_objects:
-            object.updateposition()
-        if self.detect_collision():
+            object.updatePosition()
+            if object.isOutOfBounds():
+                self.destroy_physics_object(object)
+        if self.detectCollision():
             print("algo detected collision -- ouch!")
 
+
     # https://www.geeksforgeeks.org/closest-pair-of-points-using-divide-and-conquer-algorithm/
-    def detect_collision(self): #determine if any object is within z distance from another object
+    def detectCollision(self): #determine if any object is within z distance from another object
         positions = []
         dist = lambda p1, p2: math.sqrt((p1[0] - p2[0])**2 + (p1[1] - p2[1])**2)
         for object in self.physics_objects:
@@ -55,10 +65,8 @@ class scene():
                     min_val = dist(positions[i],positions[j])
     
         if min_val < 1:
-            return True
+            return True    
         
-        
-
 
     def clear(self): #clears a scene because unicorn.clear() doesn't work great
         for i in range(0,16):

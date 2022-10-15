@@ -1,3 +1,4 @@
+sys.path.append('../python-physics-engine')
 from abc import ABC, abstractmethod
 import numpy as np
 import math
@@ -20,12 +21,20 @@ class AbstractObject(ABC):
         super().__init__()
         self.x = x
         self.y = y
-        self.v = velocity
+        self.v = velocity #velocity is (x,y) tuple
 
     @abstractmethod
     def render(self):
         pass
 
     @abstractmethod
-    def updateposition(self):
+    def updatePosition(self):
         pass
+
+    @abstractmethod
+    def isOutOfBounds(self):
+        if ((self.x > 16) or (self.x < 0)):
+            return True
+        if ((self.y >16) or (self.y < 0)):
+            return True
+        return False

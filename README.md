@@ -7,3 +7,4 @@
  - particle object
  - force generator class. takes an abstractobject and applies a force to it
  - bouncing ball
+ - make continuous motion update

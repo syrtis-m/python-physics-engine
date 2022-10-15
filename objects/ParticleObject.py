@@ -9,6 +9,10 @@ class ParticleObject(AbstractObject):
     def render(self):
         unicorn.set_pixel(self.x,self.y,255,255,255)
 
-    def updateposition(self):
+
+    def updatePosition(self):
         self.x += self.velocity[0]
         self.y += self.velocity[1]
+    
+    def isOutOfBounds(self):
+        return super().isOutOfBounds()
