@@ -5,7 +5,7 @@ import test_1
 import test_2
 import test_3
 
-waittime = 8;
+waittime = 8
 
 while (True):
     test_1.test1(waittime)
