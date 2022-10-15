@@ -1,6 +1,7 @@
 # import stuff
 import numpy as np
 from timeit import default_timer as timer
+from scene import *
 
 
 #this try/except from github.com/jayniz/unicorn-hat-sim

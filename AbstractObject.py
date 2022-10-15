@@ -1,6 +1,8 @@
 from abc import ABC, abstractmethod
 import numpy as np
 import time
+from timeit import default_timer as timer
+
 
 
 try:

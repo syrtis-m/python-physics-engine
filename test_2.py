@@ -1,6 +1,8 @@
 # import stuff
 import time
 from timeit import default_timer as timer
+from scene import *
+
 
 #this try/except from github.com/jayniz/unicorn-hat-sim
 try:
@@ -11,14 +13,9 @@ except ImportError:
 
 
 
-#custon clear function because unicorn.clear() doesn't work for the sim :)
-def clear():
-    for i in range(0,16):
-        for j in range(0,16):
-            unicorn.set_pixel(i,j,0,0,0)
-
 def test2(waittime):
     #display pixel moving across board
+    scene = scene(0,0)
     start = timer()
     end = timer()
     try:
@@ -27,9 +24,9 @@ def test2(waittime):
                 unicorn.set_pixel(i,0,255,255,255)
                 unicorn.show()
                 time.sleep(0.5)
-                clear()
+                scene.clear()
             end = timer()
             
     except KeyboardInterrupt:
-        clear()
+        scene.clear()
 
