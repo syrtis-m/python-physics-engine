@@ -1,13 +1,16 @@
 from AbstractObject import *
 
 class BallObject(AbstractObject):
-    def __init__(self, x, y, velocity) -> None:
+    def __init__(self, x, y, velocity, color) -> None:
         self.velocity = velocity #velocity is (x,y) tuple
         self.x = x
         self.y = y
+        self.r = color[0]
+        self.g = color[1]
+        self.b = color[2]
     
     def render(self):
-        unicorn.set_pixel(self.x,self.y,255,255,255)
+        unicorn.set_pixel(self.x,self.y,self.r,self.g,self.b)
 
     def updatePosition(self):
         self.x += self.velocity[0]
