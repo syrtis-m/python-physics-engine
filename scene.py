@@ -35,6 +35,7 @@ class scene():
 
     def render(self): #renders all objects in a scene
         unicorn.clear()
+        self.clear()
         for object in self.physics_objects:
             object.render()
         for object in self.static_objects:
@@ -43,6 +44,10 @@ class scene():
 
 
     def update(self):
+        if (self.gravity > 0):
+            for object in self.physics_objects:
+                object.addForce((0,self.gravity))
+
         magnitudes = []
         for object in self.physics_objects:
             object.updatePosition()

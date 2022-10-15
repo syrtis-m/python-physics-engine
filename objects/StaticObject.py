@@ -13,27 +13,34 @@ class StaticObject(AbstractObject): #staticobject means it's a object which phys
         self.dimensions = object_specific_setup #in this case, object_specific_setup is a tuple of format ((x,y),(x,y))
 
     def render(self):
-
-        dist = lambda p1, p2: math.sqrt((p1[0] - p2[0])**2 + (p1[1] - p2[1])**2)
-
-        x1 = self.dimensions[0][0]
-        y1 = self.dimensions[0][1]
-        x2 = self.dimensions[1][0]
-        y2 = self.dimensions[1][1]
+        x1, y1 = self.dimensions[0][0], self.dimensions[0][1]
+        x2, y2 = self.dimensions[1][0], self.dimensions[1][1]
 
         a = (x1,y1)
         b = (x2,y2)
-        if y1>y2:
+
+        if (x1>x2) and (y1 >= y2): #flip points if upward sloping line but points are in wrong place
             x2, y2 = a[0], a[1]
             x1, y1 = b[0], b[1]
+            smod = 1
+        
+        if (y1 < y2): #deal with downward sloping lines or points in the wrong place
+            smod = -1
+            if (x1>x2):
+                x2, y2 = a[0], a[1]
+                x1, y1 = b[0], b[1]
 
         run = 1
 
         try:
-            slope = (y2 -y1) / (x2 - x1)
+            slope = abs((y2 - y1)) / abs((x2 - x1))
         except ZeroDivisionError:
             slope = 1
             run = 0
+
+        slope = slope * smod #adjust for downward sloping lines by mult by -1
+
+        dist = lambda p1, p2: math.sqrt((p1[0] - p2[0])**2 + (p1[1] - p2[1])**2)
 
         d = int(dist((x1,y1),(x2,y2)))
 
@@ -53,3 +60,6 @@ class StaticObject(AbstractObject): #staticobject means it's a object which phys
     
     def isOutOfBounds(self):
         return False #static objects are never destroyed
+
+    def addForce(self, force: Tuple): #this should result in no force being added
+        return
