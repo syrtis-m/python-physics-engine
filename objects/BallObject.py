@@ -10,11 +10,21 @@ class BallObject(AbstractObject):
         self.b = color[2]
     
     def render(self):
-        unicorn.set_pixel(self.x,self.y,self.r,self.g,self.b)
+        unicorn.set_pixel(int(self.x),int(self.y),self.r,self.g,self.b)
+        #unicorn.set_pixel(self.x+1, self.y, self.r,self.g,self.b)
+        #unicorn.set_pixel(self.x,self.y+1,self.r,self.g,self.b)
+        #unicorn.set_pixel(self.x-1,self.y,self.r,self.g,self.b)
+        #unicorn.set_pixel(self.x,self.y-1,self.r,self.g,self.b)
+        # TODO re-add these once bounces get working
 
-    def updatePosition(self):
+        
+
+    def updatePosition(self): #velocity and gravity need to be considered
         self.x += self.velocity[0]
         self.y += self.velocity[1]
 
     def isOutOfBounds(self):
         return super().isOutOfBounds()
+
+    def addForce(self, force: Tuple):
+        return super().addForce(force)
