@@ -1,8 +1,11 @@
 #a scene is composed of objects
+from http.client import PARTIAL_CONTENT
 import sys
+from xmlrpc.client import Boolean
 sys.path.append('../python-physics-engine/objects')
 from objects.AbstractObject import *
 import math
+from collision_manager import CollisionManager
 
 try:
     import unicornhathd as unicorn
@@ -15,7 +18,8 @@ except ImportError:
 class scene():
     #the scene class manages all objects in a scene, as well as global physics values such as friction and gravity
 
-    def __init__(self, gravity, friction) -> None:
+    def __init__(self, cm: CollisionManager, gravity, friction) -> None:
+        self.cm = cm
         self.gravity = gravity
         self.friction = friction
         self.physics_objects = []
@@ -34,7 +38,7 @@ class scene():
         self.static_objects.remove(static_object)
 
     def render(self): #renders all objects in a scene
-        unicorn.clear()
+        self.clear()
         for object in self.physics_objects:
             object.render()
         for object in self.static_objects:
@@ -51,12 +55,16 @@ class scene():
                 if not self.physics_objects: #if no more objects, end the sim
                     unicorn.off()
             magnitudes.append(math.sqrt(object.velocity[0]**2+object.velocity[1]**2))
-        if self.detectCollision(max(magnitudes)):
+        collided, obj1, obj2  = self.detectCollision(max(magnitudes))
+        if collided:
             print("algo detected collision -- ouch!")
+            self.create_physics_object(self.cm.phys_phys_handler(obj1,obj2))
+            self.destroy_physics_object(obj1)
+            self.destroy_physics_object(obj2) 
 
 
     # https://www.geeksforgeeks.org/closest-pair-of-points-using-divide-and-conquer-algorithm/
-    def detectCollision(self, maxVelocity): #determine if any object is within z distance from another object
+    def detectCollision(self, maxVelocity) -> Boolean: #determine if any object is within z distance from another object
         def dist(obj1, obj2):
             return math.sqrt((obj1.x-obj2.x)**2+(obj1.y-obj2.y)**2)
         positions = []
@@ -68,12 +76,17 @@ class scene():
         #brute force find distance betweeen points    
         for i in range(n):
             for j in range(i + 1, n):
-                d = dist(self.physics_objects[i], self.physics_objects[j])
+                obj1 = self.physics_objects[i]
+                obj2 = self.physics_objects[j]
+                d = dist(obj1, obj2)
                 if d < min_val:
                     min_val = d
-    
         if min_val < maxVelocity:
-            return True
+            #self.cm.phys_phys_handler(obj1,obj2)
+            return True, obj1, obj2
+        else:
+            return False, None, None
+
         
 
     def clear(self): #clears a scene because unicorn.clear() doesn't work great
