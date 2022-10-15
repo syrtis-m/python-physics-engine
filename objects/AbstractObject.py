@@ -1,4 +1,6 @@
+import sys
 sys.path.append('../python-physics-engine')
+
 from abc import ABC, abstractmethod
 import numpy as np
 import math
@@ -17,11 +19,14 @@ except ImportError:
 #all objects inherit from this
 class AbstractObject(ABC):
 
-    def __init__(self, x, y, velocity, object_specific_setup) -> None:
+    def __init__(self, x, y, velocity, color, object_specific_setup) -> None:
         super().__init__()
         self.x = x
         self.y = y
         self.v = velocity #velocity is (x,y) tuple
+        self.r = color[0]
+        self.g = color[1]
+        self.b = color[2]
 
     @abstractmethod
     def render(self):
@@ -33,8 +38,8 @@ class AbstractObject(ABC):
 
     @abstractmethod
     def isOutOfBounds(self):
-        if ((self.x > 16) or (self.x < 0)):
+        if ((self.x > 15) or (self.x < 0)):
             return True
-        if ((self.y >16) or (self.y < 0)):
+        if ((self.y >15) or (self.y < 0)):
             return True
         return False

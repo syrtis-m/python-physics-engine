@@ -1,5 +1,7 @@
 #a scene is composed of objects
-from AbstractObject import *
+import sys
+sys.path.append('../python-physics-engine/objects')
+from objects.AbstractObject import *
 import math
 
 try:
