@@ -41,7 +41,7 @@ def collision():
     for i in range(7,16):
         unicorn.set_pixel(7,i,255,0,0)
         unicorn.show()
-        time.sleep(0.45)
+        time.sleep(0.10)
         clear()
 
 def test3(waittime):
@@ -62,5 +62,3 @@ def test3(waittime):
             end = timer()
     except KeyboardInterrupt:
         clear()
-
-
