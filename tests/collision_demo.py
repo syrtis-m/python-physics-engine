@@ -12,14 +12,17 @@ u_width, u_height = unicorn.get_shape()
 
 def setup():
     cm = CollisionManager()
-    s = scene(cm,0,0)
+    s = scene(cm,0,0,0)
 
-    n = random.randint(2,16)
+    n = random.randint(2,30)
     for i in range(0,n):
         x = random.randint(0,15)
         y = random.randint(0,15)
         v = [random.randint(-2,2),random.randint(-2,2)]
-        obj = ParticleObject(x,y,v,(255,255,255))
+        r = 255*random.randint(0,1)
+        g = 255*random.randint(0,1)
+        b = 255*random.randint(0,1)
+        obj = ParticleObject(x,y,v,(r,g,b))
         s.create_physics_object(obj)
 
     demo(s)
