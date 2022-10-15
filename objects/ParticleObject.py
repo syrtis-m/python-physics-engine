@@ -1,5 +1,7 @@
 from AbstractObject import *
 
+
+
 class ParticleObject(AbstractObject):
     def __init__(self, x, y, velocity) -> None:
         self.velocity = velocity

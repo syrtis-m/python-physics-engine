@@ -1,3 +1,4 @@
+import sys
 sys.path.append('../python-physics-engine')
 from abc import ABC, abstractmethod
 import numpy as np
@@ -33,8 +34,8 @@ class AbstractObject(ABC):
 
     @abstractmethod
     def isOutOfBounds(self):
-        if ((self.x > 16) or (self.x < 0)):
+        if ((self.x > 15) or (self.x < 0)):
             return True
-        if ((self.y >16) or (self.y < 0)):
+        if ((self.y > 15) or (self.y < 0)):
             return True
         return False
