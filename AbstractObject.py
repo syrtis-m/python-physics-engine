@@ -20,5 +20,5 @@ class AbstractObject(ABC):
         pass
 
     @abstractmethod
-    def updateposition(self, new_force_vector):
+    def updateposition(self):
         pass

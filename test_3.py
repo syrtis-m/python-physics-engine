@@ -39,7 +39,7 @@ def collision():
     for i in range(7,16):
         unicorn.set_pixel(7,i,255,0,0)
         unicorn.show()
-        time.sleep(0.45)
+        time.sleep(0.10)
         clear()
 
 
@@ -54,7 +54,7 @@ try:
                 collision()
                 break
             unicorn.show()
-            time.sleep(0.25)
+            time.sleep(0.05)
             clear()
 except KeyboardInterrupt:
     clear()
