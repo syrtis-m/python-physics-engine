@@ -1,5 +1,7 @@
 # import stuff
 import time
+from timeit import default_timer as timer
+
 
 #this try/except from github.com/jayniz/unicorn-hat-sim
 try:
@@ -42,19 +44,23 @@ def collision():
         time.sleep(0.45)
         clear()
 
+def test3(waittime):
+    #display 2 pixels moving across board
+    start = timer()
+    end = timer()
+    try:
+        while((end-start) < float(waittime)):
+            for i in range(0,16):
+                unicorn.set_pixel(i,7,255,255,255)
+                unicorn.set_pixel(15-i,7,255,255,255)
+                if i == 15-i+1:
+                    collision()
+                    break
+                unicorn.show()
+                time.sleep(0.25)
+                clear()
+            end = timer()
+    except KeyboardInterrupt:
+        clear()
 
 
-#display 2 pixels moving across board
-try:
-    while(True):
-        for i in range(0,16):
-            unicorn.set_pixel(i,7,255,255,255)
-            unicorn.set_pixel(15-i,7,255,255,255)
-            if i == 15-i+1:
-                collision()
-                break
-            unicorn.show()
-            time.sleep(0.25)
-            clear()
-except KeyboardInterrupt:
-    clear()
