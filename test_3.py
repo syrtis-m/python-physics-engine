@@ -51,7 +51,7 @@ try:
             unicorn.set_pixel(i,7,255,255,255)
             unicorn.set_pixel(15-i,7,255,255,255)
             if i == 15-i+1:
-                explosion()
+                collision()
                 break
             unicorn.show()
             time.sleep(0.25)
