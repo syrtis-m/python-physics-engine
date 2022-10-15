@@ -14,7 +14,7 @@ def test4():
     s.create_physics_object(part1)
     try:
         while(True):
-            s.render_scene()
+            s.render()
             time.sleep(0.5)
             part1.updateposition()
             s.clear()
