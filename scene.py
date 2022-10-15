@@ -66,5 +66,3 @@ class scene():
                 unicorn.set_pixel(i,j,0,0,0)
 
 
-    
-

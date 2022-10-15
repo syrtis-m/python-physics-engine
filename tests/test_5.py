@@ -21,6 +21,8 @@ def test5():
             unicorn.show()
             time.sleep(0.5)
             s.update()
+            if s.detect_collision():
+                break
             s.clear()
     except KeyboardInterrupt:
         s.clear()
