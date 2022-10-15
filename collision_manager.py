@@ -14,7 +14,6 @@ class CollisionManager():
         x3 = int((obj1.x + obj2.x) / 2) 
         y3 = int((obj1.y + obj2.y)/2)
         obj3 = ParticleObject(x3,y3,v3,(255,0,0))
-        print(v3, x3, y3)
         return obj3
 
     def phys_stat_handler(self, phys, stat, gravity, friction, COR):
