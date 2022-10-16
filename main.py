@@ -15,57 +15,59 @@ waittime = 4
 
 unicorn.clear()
 
-t = Text(["python-physics-engine"])
-t.display()
+while(True):
 
-t = Text(["Test 1"])
-t.display()
-test1(waittime-2)
+    t = Text(["python-physics-engine"])
+    t.display()
 
-t = Text(["Test 2"])
-t.display()
-test2(waittime)
+    t = Text(["Test 1"])
+    t.display()
+    test1(waittime-2)
 
-t = Text(["Time for something more interesting!","Test 3"])
-t.display()
-test3(waittime)
+    t = Text(["Test 2"])
+    t.display()
+    test2(waittime)
 
-t = Text(["Test 4"])
-t.display()
-test6(waittime)
+    t = Text(["Time for something more interesting!","Test 3"])
+    t.display()
+    test3(waittime)
 
-t = Text(["Let's step it up. Time for some actual physics!","Simultaneous collision demos"])
-t.display()
-demo(waittime)
-demo2(waittime)
+    t = Text(["Test 4"])
+    t.display()
+    test6(waittime)
 
-t = Text(["Putting it all together: random, real-time collisions"])
-t.display()
-setup()
+    t = Text(["Let's step it up. Time for some actual physics!","Simultaneous collision demos"])
+    t.display()
+    demo(waittime)
+    demo2(waittime)
 
-t = Text(["Scaling up, we move from particle collisions to a bouncing ball"])
-t.display()
-# ball demos go here
+    t = Text(["Putting it all together: random, real-time collisions"])
+    t.display()
+    setup()
 
-waittime=5
+    t = Text(["Scaling up, we move from particle collisions to a bouncing ball"])
+    t.display()
+    # ball demos go here
 
-demo_bounce(waittime)
+    waittime=5
 
-t = Text(["How about slopes?"])
-t.display()
-demo_slopes(waittime)
+    demo_bounce(waittime)
 
-t = Text(["Maybe multiple walls?"])
-t.display()
-demo_multi_objects(waittime)
+    t = Text(["How about slopes?"])
+    t.display()
+    demo_slopes(waittime)
 
-t = Text(["Ooh, let's do a funnel!"])
-t.display()
-demo_funnel(waittime)
+    t = Text(["Maybe multiple walls?"])
+    t.display()
+    demo_multi_objects(waittime)
 
-t = Text(["Let's put everything together."])
-t.display()
-demo_2_balls_funnel(waittime)
+    t = Text(["Ooh, let's do a funnel!"])
+    t.display()
+    demo_funnel(waittime)
 
-t = Text(["Thanks!! made by jonah and evan"])
-t.display()
+    t = Text(["Let's put everything together."])
+    t.display()
+    demo_2_balls_funnel(waittime)
+
+    t = Text(["Thanks!! made by jonah and evan"])
+    t.display()
