@@ -100,7 +100,7 @@ class scene():
                 self.destroy_physics_object(obj2) 
         #only check collision for static objects if there are static objects in the scene
         if self.static_objects:
-          collidedStatic, phys, stat = self.detectStaticCollision(max(magnitudes))
+          collidedStatic, phys, stat = self.detectStaticCollision(1.5)
           if collidedStatic:
               self.create_physics_object(self.cm.phys_stat_handler(phys,stat, self.gravity, self.friction, self.COR))
               self.destroy_physics_object(phys)

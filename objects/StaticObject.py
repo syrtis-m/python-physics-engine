@@ -19,12 +19,12 @@ class StaticObject(AbstractObject): #staticobject means it's a object which phys
         a = (x1,y1)
         b = (x2,y2)
 
-        if (x1>x2) and (y1 >= y2): #flip points if upward sloping line but points are in wrong place
+        smod = 1
+
+        if (x1 > x2) and (y1 >= y2): #flip points if upward sloping line but points are in wrong place
             x2, y2 = a[0], a[1]
             x1, y1 = b[0], b[1]
-            smod = 1
-        
-        if (y1 < y2): #deal with downward sloping lines or points in the wrong place
+        elif (y1 < y2): #deal with downward sloping lines or points in the wrong place
             smod = -1
             if (x1>x2):
                 x2, y2 = a[0], a[1]
@@ -57,16 +57,19 @@ class StaticObject(AbstractObject): #staticobject means it's a object which phys
     def genPhysicsShape(self):
         x1, y1 = self.dimensions[0][0], self.dimensions[0][1]
         x2, y2 = self.dimensions[1][0], self.dimensions[1][1]
+        #x3, y3 = self.dimensions[2][0], self.dimensions[2][1]
+        #x4, y4 = self.dimensions[3][0], self.dimensions[4][1]
+
 
         a = (x1,y1)
         b = (x2,y2)
 
-        if (x1>x2) and (y1 >= y2): #flip points if upward sloping line but points are in wrong place
+        smod = 1
+
+        if (x1 > x2) and (y1 >= y2): #flip points if upward sloping line but points are in wrong place
             x2, y2 = a[0], a[1]
             x1, y1 = b[0], b[1]
-            smod = 1
-        
-        if (y1 < y2): #deal with downward sloping lines or points in the wrong place
+        elif (y1 < y2): #deal with downward sloping lines or points in the wrong place
             smod = -1
             if (x1>x2):
                 x2, y2 = a[0], a[1]

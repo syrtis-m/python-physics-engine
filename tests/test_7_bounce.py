@@ -13,12 +13,19 @@ from timeit import default_timer as timer
 
 def test_7_bounce(waittime):
 
-    s = scene(forcesDefault)
+    forcesTest = {
+        "gravity": 0.5,
+        "friction": 0.5,
+        "COR": 1
+    }
+
+    s = scene(forcesTest)
     
     s.create_static_object(StaticObject((3, 255, 37), ((15,15),(0,15)))) #flat surface
 
-    #s.create_static_object(StaticObject((3, 255, 37), ((15,12),(0,15)))) #diagonal surface
-    #s.create_static_object(StaticObject((3, 255, 37), ((15,0),(0,15)))) #test weird surface
+    #s.create_static_object(StaticObject((3, 255, 37), ((15,10),(0,15)))) #diagonal surface
+    #s.create_static_object(StaticObject((3, 255, 37), ((10,15),(0,4)))) #test weird surface
+    ## TODO fix
 
     s.create_physics_object(BallObject(14,0,(-0.5,0),(255,255,255)))
     
