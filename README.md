@@ -1,8 +1,9 @@
 # python-physics-engine
- built for HACK WashU 2022. 
- works with a raspberry pi and a unicorn hat HD
- using FastLine: https://github.com/MrGolden1/FastLine
- [see it in action](https://youtu.be/646AFSltmto)
+[see it in action.](https://youtu.be/646AFSltmto)
+built for HACK WashU 2022. 
+works with a raspberry pi and a unicorn hat HD.
+### dependencies
+numpy, [FastLine](https://github.com/MrGolden1/FastLine)
 
 
 ## Inspiration
