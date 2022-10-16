@@ -25,3 +25,5 @@ def test1(waittime):
             end = timer()
     except KeyboardInterrupt:
         unicorn.clear()
+
+test1(5)

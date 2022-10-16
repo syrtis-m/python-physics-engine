@@ -20,8 +20,8 @@ def test6():
         s.destroy_physics_object(part2)
         print(s.physics_objects)
     """
-    cm = CollisionManager()
-    s = scene(cm,0,0)
+    
+    s = scene(forcesZeroG)
     v1 = [2,1]
     v2 = [-1,1] 
     part1 = ParticleObject(1,1,v1,(255,255,255))

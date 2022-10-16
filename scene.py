@@ -92,12 +92,18 @@ class scene():
         if self.physics_objects:
             # check collision relative to max velocity 
             # (i.e., the faster a particle is moving the farther away detection radius must be)
-            collided, obj1, obj2  = self.detectCollision(max(magnitudes)) 
+            collided, colliders  = self.detectCollision(max(magnitudes)) 
             if collided:
-                print("algo detected collision -- ouch!")
-                self.create_physics_object(self.cm.phys_phys_handler(obj1,obj2))
-                self.destroy_physics_object(obj1)
-                self.destroy_physics_object(obj2) 
+                # print("algo detected collision -- ouch!")
+                for obj1,obj2 in colliders:
+                    self.create_physics_object(self.cm.phys_phys_handler(obj1,obj2))
+                    # for some reason the collision alg will output objs which don't exist in the list
+                    # which causes errors. I wrapped this in ifs to prevent this, 
+                    # but need to look into it.
+                    if obj1 in self.physics_objects:
+                        self.destroy_physics_object(obj1)
+                    if obj2 in self.physics_objects:
+                        self.destroy_physics_object(obj2) 
         #only check collision for static objects if there are static objects in the scene
         if self.static_objects:
           collidedStatic, phys, stat = self.detectStaticCollision(max(magnitudes))
@@ -113,11 +119,8 @@ class scene():
     def detectCollision(self, maxVelocity) -> bool: 
         def dist(obj1, obj2):
             return math.sqrt((obj1.x-obj2.x)**2+(obj1.y-obj2.y)**2)
-        positions = []
-        for object in self.physics_objects:
-            positions.append([object.x, object.y])
-            
-        min_val = float('inf') 
+
+        collisions = []
         n = len(self.physics_objects)
         #brute force find distance betweeen points    
         for i in range(n):
@@ -125,12 +128,23 @@ class scene():
                 obj1 = self.physics_objects[i]
                 obj2 = self.physics_objects[j]
                 d = dist(obj1, obj2)
+                if d <= maxVelocity:
+                    proj_pos_1 = [obj1.x+obj1.velocity[0],obj1.y+obj1.velocity[1]]
+                    proj_pos_2 = [obj2.x+obj2.velocity[0],obj2.y+obj2.velocity[1]]
+                    if self.compareProjection(proj_pos_1, [obj2.x,obj2.y]) \
+                        or self.compareProjection(proj_pos_2, [obj1.x,obj1.y]):
+                        collisions.append([obj1, obj2]) 
+                """
                 if d < min_val:
                     min_val = d
-        if min_val < maxVelocity:
-            return True, obj1, obj2
+                    if min_val < maxVelocity:
+                        collisions.append([obj1, obj2])
+                        print(collisions)
+                """
+        if collisions:                
+            return True, collisions
         else:
-            return False, None, None
+            return False, None
     
     def setUpStaticCollision(self): #run to set up all static positions in the scene
         staticPositions= []
@@ -180,6 +194,23 @@ class scene():
         for i in range(0,16):
             for j in range(0,16):
                 unicorn.set_pixel(i,j,0,0,0)
+
+    def sign(x):
+        if x>0:
+            return 1
+        elif x==0:
+            return 0
+        else:
+            return -1
+    
+    # helper function to compare particle projection to given position,
+    # for purpose of determining collisions.
+    def compareProjection(self, proj_pos: tuple, pos):
+        if proj_pos < pos or proj_pos > pos or proj_pos == pos:
+            return True
+        return False
+
+            
 
 
 
