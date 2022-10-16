@@ -12,9 +12,6 @@ class StaticObject(AbstractObject): #staticobject means it's a object which phys
         self.dimensions = object_specific_setup #in this case, object_specific_setup is a tuple of format ((x,y),(x,y))
         self.genPhysicsShape()#this func sets self.x and self.y to be at every point
 
-
-
-
     def render(self):
         x1, y1 = self.dimensions[0][0], self.dimensions[0][1]
         x2, y2 = self.dimensions[1][0], self.dimensions[1][1]
@@ -105,5 +102,5 @@ class StaticObject(AbstractObject): #staticobject means it's a object which phys
     def isOutOfBounds(self):
         return False #static objects are never destroyed
 
-    def addForce(self, force: Tuple): #this should result in no force being added
+    def addForce(self, force: tuple): #this should result in no force being added
         return

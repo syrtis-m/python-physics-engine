@@ -26,5 +26,5 @@ class BallObject(AbstractObject):
     def isOutOfBounds(self):
         return super().isOutOfBounds()
 
-    def addForce(self, force: Tuple):
+    def addForce(self, force: tuple):
         return super().addForce(force)

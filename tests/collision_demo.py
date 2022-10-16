@@ -11,8 +11,7 @@ u_width, u_height = unicorn.get_shape()
 
 
 def setup():
-    cm = CollisionManager()
-    s = scene(cm,0,0,0)
+    s = scene(forcesZeroG)
 
     n = random.randint(2,30)
     for i in range(0,n):

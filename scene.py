@@ -1,7 +1,5 @@
 #a scene is composed of objects
-from http.client import PARTIAL_CONTENT
 import sys
-from xmlrpc.client import Boolean
 sys.path.append('../python-physics-engine/objects')
 from objects.AbstractObject import *
 import math
@@ -12,22 +10,44 @@ try:
     print("unicorn hat hd detected")
 except ImportError:
     from unicorn_hat_sim import unicornhathd as unicorn
-    
 
+
+#forces options for scene()
+forcesDefault = {
+  "gravity": 0.5,
+  "friction": 0.5,
+  "COR": 1
+}
+
+forcesZeroG = {
+    "gravity" : 0,
+    "friction" : 0.5,
+    "COR" : 1
+
+}
+    
 
 class scene():
     #the scene class manages all objects in a scene, as well as global physics values such as friction and gravity
+    #scenes take a dict of forces - examples above
 
-    def __init__(self, cm: CollisionManager, gravity, friction, COR) -> None:
-        self.cm = cm
-        self.gravity = gravity
-        self.friction = friction
-        self.COR = COR #coefficient of restitution. needed for calculating collisions against static object
+
+    def __init__(self, forces : dict) -> None:
+        #config
+        self.gravity = forces["gravity"]
+        self.friction = forces["friction"]
+        self.COR = forces["COR"] #coefficient of restitution. needed for calculating collisions against static object
+        self.cm = CollisionManager()
+
+        #state tracking
         self.physics_objects = []
         self.static_objects = []
         self.staticPositions = [] #positions of each point of each static object
         self.finished = False
+        self.time = 0 #global counter for force calculations  
 
+
+##-----scene-object manipulaters-----##
     def create_physics_object(self, physics_object): #adds a physics object to a scene
         self.physics_objects.append(physics_object)
 
@@ -42,6 +62,8 @@ class scene():
         self.static_objects.remove(static_object)
         self.setUpStaticCollision() #find all static positions and keep track of them
 
+
+##-----core graphics render functionality-----##
     def render(self): #renders all objects in a scene
         self.clear()
         for object in self.physics_objects:
@@ -50,7 +72,7 @@ class scene():
             object.render()
         unicorn.show()
 
-
+##-----core physics update functionality-----##
     def update(self):
         if (self.gravity > 0):
             for object in self.physics_objects:
@@ -65,24 +87,30 @@ class scene():
                     self.finished = True
                     return
             magnitudes.append(math.sqrt(object.velocity[0]**2+object.velocity[1]**2))
+
+        #only check collision for physics objects if there are physics objects in the scene
         if self.physics_objects:
-            collided, obj1, obj2  = self.detectCollision(max(magnitudes))
+            # check collision relative to max velocity 
+            # (i.e., the faster a particle is moving the farther away detection radius must be)
+            collided, obj1, obj2  = self.detectCollision(max(magnitudes)) 
             if collided:
                 print("algo detected collision -- ouch!")
                 self.create_physics_object(self.cm.phys_phys_handler(obj1,obj2))
                 self.destroy_physics_object(obj1)
                 self.destroy_physics_object(obj2) 
-        if self.physics_objects:
+        #only check collision for static objects if there are static objects in the scene
+        if self.static_objects:
           collidedStatic, phys, stat = self.detectStaticCollision(max(magnitudes))
           if collidedStatic:
-              #phys object should bounce off it. use stat[2] -- the slope -- to calculate angle
               self.create_physics_object(self.cm.phys_stat_handler(phys,stat, self.gravity, self.friction, self.COR))
               self.destroy_physics_object(phys)
 
 
-
+##-----collision-----##
     # https://www.geeksforgeeks.org/closest-pair-of-points-using-divide-and-conquer-algorithm/
-    def detectCollision(self, maxVelocity) -> Boolean: #determine if any object is within z distance from another object
+    # determine if any object is within z distance from another object
+    # returns a bool if collision detected or not, and if so the two objects which collided 
+    def detectCollision(self, maxVelocity) -> bool: 
         def dist(obj1, obj2):
             return math.sqrt((obj1.x-obj2.x)**2+(obj1.y-obj2.y)**2)
         positions = []
@@ -112,7 +140,7 @@ class scene():
                 staticPositions.append([obj[0], obj[1], obj[2]]) #get all positions of all static objects. treat these as fixed points in the scene
         self.staticPositions = staticPositions #store all static positions
 
-    def detectStaticCollision(self, maxVelocity) -> Boolean:
+    def detectStaticCollision(self, maxVelocity) -> bool:
         #compare all particles to all static positions
         def dist(obj1, obj2X, obj2Y):
             return math.sqrt((obj1.x-obj2X)**2+(obj1.y-obj2Y)**2)
@@ -141,14 +169,14 @@ class scene():
             return False, None, None        
 
 
-    def isFinished(self):
+##-----misc-----##
+    def isFinished(self): #basic getter for flag data
         if self.finished:
             return True
         else:
             return False
     
-
-    def clear(self): #clears a scene because unicorn.clear() doesn't work great
+    def clear(self): #clears a scene because unicorn.clear() doesn't work
         for i in range(0,16):
             for j in range(0,16):
                 unicorn.set_pixel(i,j,0,0,0)

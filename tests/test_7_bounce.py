@@ -1,5 +1,6 @@
 #bouncing ball demo
 import sys
+import time
 sys.path.append('../python-physics-engine')
 sys.path.append('../python-physics-engine/objects')
 
@@ -12,8 +13,7 @@ from timeit import default_timer as timer
 
 def test_7_bounce(waittime):
 
-    cm = CollisionManager()
-    s = scene(cm, 0.5, 0.5, 1)
+    s = scene(forcesDefault)
     
     s.create_static_object(StaticObject((3, 255, 37), ((15,15),(0,15)))) #flat surface
 
