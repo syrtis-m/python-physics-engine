@@ -25,7 +25,7 @@ class Text():
 
         ANIMATION_TIME = 0.02
 
-        unicorn.rotation(90)
+        unicorn.rotation(180)
         unicorn.brightness(0.6)
 
 
