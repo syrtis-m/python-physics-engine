@@ -23,7 +23,7 @@ class Text():
         colours = [tuple([int(n * 255) for n in colorsys.hsv_to_rgb(x / float(len(self.lines)), 1.0, 1.0)]) for x in range(len(self.lines))]
 
 
-        ANIMATION_TIME = 0.03
+        ANIMATION_TIME = 0.02
 
         unicornhathd.rotation(270)
         unicornhathd.brightness(0.6)

@@ -37,7 +37,7 @@ demo2(waittime)
 t = Text(["Putting it all together: random, real-time collisions"])
 t.display()
 setup()
-#test_7_bounce(waittime)
-#physics render loop
-#while (True):
-#    render_objects(objects)
+
+t = Text(["Scaling up, we move from particle collisions to a bouncing ball"])
+t.display()
+# ball demos go here

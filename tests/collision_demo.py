@@ -12,7 +12,8 @@ u_width, u_height = unicorn.get_shape()
 ANIMATION_SPEED = 0.15
 MAX_PARTICLES = 10
 WAIT_TIME = 2
-
+COUNT = 0 
+N = 7 # number of sims to run
 
 
 def setup():
@@ -44,8 +45,14 @@ def demo_c(s):
             s.update()
             s.clear()
             end = timer()
+        incr()
+        if COUNT > N:
+            return
         setup()
     except KeyboardInterrupt:
         s.clear()
 
+def incr():
+    global COUNT 
+    COUNT += 1
 #setup()
