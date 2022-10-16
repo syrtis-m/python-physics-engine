@@ -1,5 +1,7 @@
 #a scene is composed of objects
 import sys
+import numpy as np
+from FastLine import Line
 sys.path.append('../python-physics-engine/objects')
 from objects.AbstractObject import *
 import math
@@ -98,6 +100,7 @@ class scene():
                 self.create_physics_object(self.cm.phys_phys_handler(obj1,obj2))
                 self.destroy_physics_object(obj1)
                 self.destroy_physics_object(obj2) 
+
         #only check collision for static objects if there are static objects in the scene
         if self.static_objects:
           collidedStatic, phys, stat = self.detectStaticCollision(1.5)
@@ -140,11 +143,21 @@ class scene():
                 staticPositions.append([obj[0], obj[1], obj[2]]) #get all positions of all static objects. treat these as fixed points in the scene
         self.staticPositions = staticPositions #store all static positions
 
+    
     def detectStaticCollision(self, maxVelocity) -> bool:
         #compare all particles to all static positions
         def dist(obj1, obj2X, obj2Y):
             return math.sqrt((obj1.x-obj2X)**2+(obj1.y-obj2Y)**2)
+
+        def slope(x1,x2,y1,y2):
+            try:
+                slope = abs((y2 - y1)) / abs((x2 - x1))
+            except ZeroDivisionError:
+                slope = 1
+            return slope
+
         positions = []
+
         for object in self.physics_objects:
             positions.append([object.x, object.y])
             
@@ -153,8 +166,48 @@ class scene():
         staticsCount = len(self.staticPositions)
         #brute force find distance betweeen points    
         for i in range(n):
-            for j in range(i, staticsCount):
-                obj1 = self.physics_objects[i]
+            obj1 = self.physics_objects[i]
+            ##check each obj against staticboxobj
+            for static in self.static_objects:
+                #project col forward
+                x1, y1 = int(obj1.x), int(obj1.y)
+                x2, y2 = int(obj1.x + obj1.velocity[0]), int(obj1.y + obj1.velocity[1]+self.gravity)
+                print("---------------")
+                print("(x1,y1)",x1,y1)
+                print("(x2,y2)",x2,y2)
+
+                if (static.type == "simple"):#case where it's just a StaticObject
+                    l1 = Line(p1=(x1,y1),p2=(x2,y2))
+                    l2 = Line(p1=(static.x1, static.y2), p2=(static,x2,static.y2))
+                    s = slope(static.x1, static.y2,static.x2,static.y2)
+                    intersect = l1.intersection(l2)
+
+                    
+                    
+                    print("1",static.x1,static.x2)
+                    print("2",static.x2,static.y2)
+                    if (intersect != None):
+                            obj2 = (intersect[0], intersect[1], s)
+                            d = dist(obj1, intersect[0], intersect[1])
+                            if (d < maxVelocity):
+                                return True, obj1, obj2
+                elif (static.type == "complex"):
+                    for staticL2 in static.static_objects:
+                        l1 = Line(p1=(x1,y1),p2=(x2,y2))
+                        l2 = Line(p1=(staticL2.x1, staticL2.y2), p2=(staticL2.x2,staticL2.y2))
+                        s = slope(staticL2.x1, staticL2.y2,staticL2.x2,staticL2.y2)
+                        intersect = l1.intersection(l2)
+
+                        if (intersect != None):
+                            obj2 = (intersect[0], intersect[1], s)
+                            d = dist(obj1, intersect[0], intersect[1])
+                            if (d < maxVelocity):
+                                return True, obj1, obj2
+                else:
+                    print("error in scene.detectStaticCollision()")
+
+
+            for j in range(staticsCount):
                 obj2 = self.staticPositions[j]
                 obj2X = self.staticPositions[j][0]
                 obj2Y = self.staticPositions[j][1]
