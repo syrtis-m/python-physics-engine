@@ -7,7 +7,7 @@ from objects.ParticleObject import *
 from scene import *
 u_width, u_height = unicorn.get_shape()
 
-animation_speed = 0.1
+animation_speed = 0.15
 
 def demo2(waittime):
 
