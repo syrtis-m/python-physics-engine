@@ -1,8 +1,8 @@
 #bouncing ball demo
 import sys
 import time
-sys.path.append('/python-physics-engine')
-sys.path.append('/python-physics-engine/objects')
+sys.path.append('python-physics-engine')
+sys.path.append('python-physics-engine/objects')
 
 from scene import *
 from objects.StaticObject import StaticObject
