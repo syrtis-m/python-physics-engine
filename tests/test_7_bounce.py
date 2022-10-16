@@ -23,12 +23,12 @@ def test_7_bounce(waittime):
 
     green = (3, 255, 37)
     
-    #s.create_static_object(StaticObject(green, ((15,15),(0,15)))) #flat surface @ h=15
-    s.create_static_object(StaticObject(green, ((15,12),(0,12)))) #flat surface @ h=12
+    s.create_static_object(StaticObject(green, ((15,15),(0,15)))) #flat surface @ h=15
+    #s.create_static_object(StaticObject(green, ((15,12),(0,12)))) #flat surface @ h=12
 
     #s.create_static_object(StaticObject(green, ((15,0),(0,15)))) #down left
     #s.create_static_object(StaticObject(green, ((15,13),(0,15)))) #down left
-    #s.create_static_object(StaticObject(green, ((10,15),(0,4)))) #test weird surface
+    s.create_static_object(StaticObject(green, ((10,15),(0,4)))) #test weird surface
     ## TODO fix
 
     s.create_physics_object(BallObject(14,0,(-.5,0),(255,255,255)))

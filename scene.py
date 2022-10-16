@@ -192,7 +192,7 @@ class scene():
 
                 if (static.type == "simple"):#case where it's just a StaticObject
                     l1 = Line(p1=(x1,y1),p2=(x2,y2))
-                    l2 = Line(p1=(static.x1, static.y2), p2=(static,x2,static.y2))
+                    l2 = Line(p1=(static.x1, static.y2), p2=(static.x2,static.y2))
                     s = slope(static.x1, static.y2,static.x2,static.y2)
                     intersect = l1.intersection(l2)
 
