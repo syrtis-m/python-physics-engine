@@ -41,5 +41,3 @@ def test_7_bounce(waittime):
         s.update()
         end = timer()
 
-test_7_bounce(5)
-

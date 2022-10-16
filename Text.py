@@ -63,7 +63,7 @@ class Text():
                 for y in range(height):
                     pixel = image.getpixel((x + scroll, y))
                     r, g, b = [int(n) for n in pixel]
-                    unicornhathd.set_pixel(width - 1 - x, y, r, g, b)
+                    unicorn.set_pixel(width - 1 - x, y, r, g, b)
 
             unicorn.show()
             time.sleep(ANIMATION_TIME)
