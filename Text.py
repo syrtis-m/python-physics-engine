@@ -11,7 +11,7 @@ try:
     import unicornhathd as unicorn
     print("unicorn hat hd detected")
 except ImportError:
-    from unicorn_hat_sim import unicornhathd as unicornhathd
+    from unicorn_hat_sim import unicornhathd as unicorn
 
 
 class Text():
@@ -25,11 +25,11 @@ class Text():
 
         ANIMATION_TIME = 0.03
 
-        unicornhathd.rotation(270)
-        unicornhathd.brightness(0.6)
+        unicorn.rotation(270)
+        unicorn.brightness(0.6)
 
 
-        width, height = unicornhathd.get_shape()
+        width, height = unicorn.get_shape()
 
         text_x = width
         text_y = 2
@@ -65,5 +65,5 @@ class Text():
                     r, g, b = [int(n) for n in pixel]
                     unicornhathd.set_pixel(width - 1 - x, y, r, g, b)
 
-            unicornhathd.show()
+            unicorn.show()
             time.sleep(ANIMATION_TIME)
