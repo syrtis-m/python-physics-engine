@@ -33,4 +33,4 @@ def test2(waittime):
     except KeyboardInterrupt:
         scene.clear()
 
-test2(5)
+#test2(5)

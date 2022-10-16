@@ -9,7 +9,7 @@ u_width, u_height = unicorn.get_shape()
 
 
 
-def test6():
+def test6(waittime):
     #display 2 particles colliding
     """"
     def handle_it():
@@ -30,16 +30,20 @@ def test6():
     s.create_physics_object(part1)
     s.create_physics_object(part2)
 
+    start = timer()
+    end = timer()
+
     try:
-        while(True):
+        while((end-start) < float(waittime)):
             s.render()
             unicorn.show()
             time.sleep(0.1)
             s.update()
             s.clear()
+            end = timer()
     except KeyboardInterrupt:
         s.clear()
 
 
 
-test6()
+#test6()

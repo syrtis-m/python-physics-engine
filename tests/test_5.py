@@ -12,19 +12,22 @@ part1 = ParticleObject(1,1,v1,(255,255,255))
 v2 = [-1,0]
 part2 = ParticleObject(15,1,v2,(255,255,255))
 
-def test5():
+def test5(waittime):
     #display 2 particles
     s = scene(forcesZeroG)
     s.create_physics_object(part1)
     s.create_physics_object(part2)
+    start = timer()
+    end = timer()
     try:
-        while(True):
+        while((end-start) < float(waittime)):
             s.render()
             unicorn.show()
             time.sleep(0.5)
             s.update()
             s.clear()
+            end = timer()
     except KeyboardInterrupt:
         s.clear()
 
-test5()
+#test5()

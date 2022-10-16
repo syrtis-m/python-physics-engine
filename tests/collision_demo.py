@@ -10,7 +10,7 @@ from collision_manager import CollisionManager
 u_width, u_height = unicorn.get_shape()
 
 ANIMATION_SPEED = 0.15
-MAX_PARTICLES = 15
+MAX_PARTICLES = 10
 WAIT_TIME = 2
 
 
@@ -29,10 +29,10 @@ def setup():
         obj = ParticleObject(x,y,v,(r,g,b))
         s.create_physics_object(obj)
 
-    demo(s)
+    demo_c(s)
 
 
-def demo(s):
+def demo_c(s):
     start = timer()
     end = timer()
 
@@ -48,4 +48,4 @@ def demo(s):
     except KeyboardInterrupt:
         s.clear()
 
-setup()
+#setup()

@@ -65,4 +65,4 @@ def test3(waittime):
     except KeyboardInterrupt:
         s.clear()
 
-test3(5)
+#test3(5)

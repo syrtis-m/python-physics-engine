@@ -7,9 +7,9 @@ from objects.ParticleObject import *
 from scene import *
 u_width, u_height = unicorn.get_shape()
 
-animation_speed = 0.4
+animation_speed = 0.1
 
-def demo():
+def demo(waittime):
     v1 = [0,1]
     v2 = [0,-1]
     v3 = [0,1]
@@ -31,13 +31,16 @@ def demo():
     s.create_physics_object(part6)
 
     try:
-        while not s.isFinished():
+        start = timer()
+        end = timer()
+        while ((end-start) < float(waittime)):
             s.render()
             unicorn.show()
             time.sleep(animation_speed)
             s.update()
             s.clear()
+            end = timer()
     except KeyboardInterrupt:
         s.clear()
 
-demo()
+#demo()

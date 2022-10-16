@@ -31,4 +31,3 @@ def test_7_bounce(waittime):
         end = timer()
 
 
-test_7_bounce(5)
