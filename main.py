@@ -15,6 +15,9 @@ waittime = 4
 
 unicorn.clear()
 
+t = Text(["python-physics-engine"])
+t.display()
+
 t = Text(["Test 1"])
 t.display()
 test1(waittime-2)
@@ -46,8 +49,6 @@ t.display()
 
 waittime=5
 
-t = Text(["Let's add gravity"])
-t.display()
 demo_bounce(waittime)
 
 t = Text(["How about slopes?"])
@@ -65,3 +66,6 @@ demo_funnel(waittime)
 t = Text(["Let's put everything together."])
 t.display()
 demo_2_balls_funnel(waittime)
+
+t = Text(["Thanks!! made by jonah and evan"])
+t.display()
