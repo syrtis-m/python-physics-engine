@@ -1,32 +1,33 @@
-from cgi import test
 import sys
 sys.path.append('../python-physics-engine')
-from ParticleObject import * 
+sys.path.append('../python-physics-engine/objects')
+from objects.ParticleObject import *
 from scene import *
 
 u_width, u_height = unicorn.get_shape()
 
 v1 = [1,0]
-part1 = ParticleObject(1,1,v1)
+part1 = ParticleObject(1,1,v1,(255,255,255))
 
 v2 = [-1,0]
-part2 = ParticleObject(15,1,v2)
+part2 = ParticleObject(15,1,v2,(255,255,255))
 
-def test5():
+def test5(waittime):
     #display 2 particles
-    s = scene(0,0)
+    s = scene(forcesZeroG)
     s.create_physics_object(part1)
     s.create_physics_object(part2)
+    start = timer()
+    end = timer()
     try:
-        while(True):
+        while((end-start) < float(waittime)):
             s.render()
             unicorn.show()
             time.sleep(0.5)
             s.update()
-            if s.detect_collision():
-                break
             s.clear()
+            end = timer()
     except KeyboardInterrupt:
         s.clear()
 
-test5()
+#test5()

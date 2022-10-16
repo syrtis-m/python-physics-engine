@@ -9,11 +9,16 @@ from scene import *
 from collision_manager import CollisionManager
 u_width, u_height = unicorn.get_shape()
 
+ANIMATION_SPEED = 0.15
+MAX_PARTICLES = 10
+WAIT_TIME = 2
+
+
 
 def setup():
     s = scene(forcesZeroG)
 
-    n = random.randint(2,30)
+    n = random.randint(2,MAX_PARTICLES)
     for i in range(0,n):
         x = random.randint(0,15)
         y = random.randint(0,15)
@@ -24,18 +29,18 @@ def setup():
         obj = ParticleObject(x,y,v,(r,g,b))
         s.create_physics_object(obj)
 
-    demo(s)
+    demo_c(s)
 
 
-def demo(s):
+def demo_c(s):
     start = timer()
     end = timer()
 
     try:
-        while ((end-start) < float(2) and (not s.isFinished())):
+        while ((end-start) < float(WAIT_TIME) and (not s.isFinished())):
             s.render()
             unicorn.show()
-            time.sleep(0.1)
+            time.sleep(ANIMATION_SPEED)
             s.update()
             s.clear()
             end = timer()
@@ -43,4 +48,4 @@ def demo(s):
     except KeyboardInterrupt:
         s.clear()
 
-setup()
+#setup()

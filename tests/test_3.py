@@ -19,7 +19,7 @@ except ImportError:
 
 # collision handler. will either display simple 'explosion' animation or
 # a particle moving off in another direction
-def collision(scene):
+def collision(s):
     """"
     clear()
     unicorn.set_pixel(7,8,255,0,0)
@@ -37,16 +37,16 @@ def collision(scene):
     time.sleep(0.5)
     clear()
     """
-    scene.clear()
+    s.clear()
     for i in range(7,16):
         unicorn.set_pixel(7,i,255,0,0)
         unicorn.show()
         time.sleep(0.10)
-        scene.clear()
+        s.clear()
 
 def test3(waittime):
     #display 2 pixels moving across board
-    scene = scene(0,0)
+    s = scene(forcesZeroG)
 
     start = timer()
     end = timer()
@@ -56,11 +56,13 @@ def test3(waittime):
                 unicorn.set_pixel(i,7,255,255,255)
                 unicorn.set_pixel(15-i,7,255,255,255)
                 if i == 15-i+1:
-                    collision(scene)
+                    collision(s)
                     break
                 unicorn.show()
                 time.sleep(0.25)
-                scene.clear()
+                s.clear()
             end = timer()
     except KeyboardInterrupt:
-        scene.clear()
+        s.clear()
+
+#test3(5)

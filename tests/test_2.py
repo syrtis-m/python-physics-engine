@@ -18,7 +18,7 @@ except ImportError:
 
 def test2(waittime):
     #display pixel moving across board
-    scene = scene(0,0)
+    s = scene(forcesZeroG)
     start = timer()
     end = timer()
     try:
@@ -27,9 +27,10 @@ def test2(waittime):
                 unicorn.set_pixel(i,0,255,255,255)
                 unicorn.show()
                 time.sleep(0.5)
-                scene.clear()
+                s.clear()
             end = timer()
             
     except KeyboardInterrupt:
         scene.clear()
 
+#test2(5)
