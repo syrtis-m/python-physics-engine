@@ -12,7 +12,7 @@ class ParticleObject(AbstractObject):
         self.b = color[2]
     
     def render(self):
-        unicorn.set_pixel(self.x,self.y,self.r,self.g,self.b)
+        unicorn.set_pixel(int(self.x),int(self.y),self.r,self.g,self.b)
 
     def updatePosition(self):
         self.x += self.velocity[0]

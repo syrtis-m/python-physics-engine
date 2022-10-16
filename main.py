@@ -5,7 +5,7 @@ from tests.test_3 import test3
 from tests.test_4 import test4
 from tests.test_5 import test5
 from tests.test_6 import test6
-from tests.test_7_bounce import test_7_bounce
+from tests.demo_7_bounce import *
 from tests.simultaneous_collision_demo import demo
 from tests.simultaneous_collision_demo_2 import demo2
 from tests.collision_demo import setup
@@ -43,3 +43,25 @@ setup()
 t = Text(["Scaling up, we move from particle collisions to a bouncing ball"])
 t.display()
 # ball demos go here
+
+waittime=5
+
+t = Text(["Let's add gravity"])
+t.display()
+demo_bounce(waittime)
+
+t = Text(["How about slopes?"])
+t.display()
+demo_slopes(waittime)
+
+t = Text(["Maybe multiple walls?"])
+t.display()
+demo_multi_objects(waittime)
+
+t = Text(["Ooh, let's do a funnel!"])
+t.display()
+demo_funnel(waittime)
+
+t = Text(["Let's put everything together."])
+t.display()
+demo_2_balls_funnel(waittime)
