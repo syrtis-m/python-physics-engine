@@ -13,6 +13,8 @@ from Text import *
 
 waittime = 4
 
+unicorn.clear()
+
 t = Text(["Test 1"])
 t.display()
 test1(waittime-2)
