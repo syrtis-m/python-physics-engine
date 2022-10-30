@@ -19,7 +19,8 @@ We used OOP to create objects, a scene, and a collision handler to handle object
 Challenges we ran into
 
 Rendering physics demos on a 16x16 pixel board proved more difficult than we had originally thought. A lot of trouble came from being forced to render in only integers -- not floats, which is not entirely conducive to physics calculations. The collision detection was also a real pain, in part again due to the strict constraint to integers, and trade-offs between accuracy and computational efficiency. For instance, in trying to handle simultaneous collisions, we developed an O(n!) algorithm; needless to say, there's no way a Raspberry Pi Zero can handle that.
-Accomplishments that we're proud of
+
+## Accomplishments that we're proud of
 
 Due to the relatively niche nature of our project, running a physics engine but also rendering it on a HAT, meant that we had to rely on our own knowledge and could not Google as much as a software dev would like. The fact that the thing works at all, and to the level it does, after only, essentially, a day of work is extremely gratifying.
 
